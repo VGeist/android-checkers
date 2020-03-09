@@ -1,0 +1,25 @@
+<resources>
+    <!-- MENU -->
+    <string name="app_name">Checkers</string>
+    <string name="new_game_button">New Game</string>
+    <string name="load_game_button">Load Game</string>
+    <string name="options_button">Options</string>
+    <string name="credits_button">Credits</string>
+    <string name="exit_app_button">Exit</string>
+    <stirng name="exit_dialog">Are you sure you want to quit?</stirng>
+    <string name="cancel_button">Cancel</string>
+    <string name="back_button">Back</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="apply_button">Apply</string>
+
+    <!-- IN-GAME -->
+    <string name="quit_game_button">Quit</string>
+    <stirng name="quit_warning_dialog">Unsaved progress will be lost. Are you sure you want to quit?</stirng>
+    <string name="save_game_button">Save Game</string>
+    <string name="end_turn_button">Load Game</string>
+    <string name="undo_move_button">Undo</string>
+
+    <!-- OPTIONS -->
+
+    <!-- CREDITS -->
+</resources>
