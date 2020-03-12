@@ -1,6 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <!-- Placeholder for where the game board will be displayed
+        Board will likely use image buttons, changing the image
+        displays the state of that location (what piece exists there)
+        Read Chapter 23 for possible solutions
+    -->
+    <TextView
+        android:id="@+id/game_board"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:text="Game Board Placeholder"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <!-- Player 1 Turn control -->
+
+    <Button
+        android:id="@+id/player1_end_turn_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/end_turn_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/game_board"
+        app:layout_constraintRight_toLeftOf="@id/log_container" />
+
+    <Button
+        android:id="@+id/player1_undo_turn_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/undo_move_button"
+        app:layout_constraintBottom_toTopOf="@id/player1_end_turn_button"
+        app:layout_constraintLeft_toRightOf="@id/game_board"
+        app:layout_constraintRight_toLeftOf="@id/log_container" />
+
+    <!-- Player 2 Turn control -->
+    <Button
+        android:id="@+id/player2_end_turn_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:text="@string/end_turn_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/game_board"
+        app:layout_constraintRight_toLeftOf="@id/log_container" />
+
+    <Button
+        android:id="@+id/player2_undo_turn_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        android:text="@string/undo_move_button"
+        app:layout_constraintTop_toBottomOf="@id/player2_end_turn_button"
+        app:layout_constraintLeft_toRightOf="@id/game_board"
+        app:layout_constraintRight_toLeftOf="@id/log_container" />
+
+    <!-- Log container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/log_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintDimensionRatio="7:13"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent" >
+
+        <!-- Log toolbar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/log_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="@string/log_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- replace with icon -->
+            <Button
+                android:id="@+id/pause_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Menu"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/log_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/log_toolbar"
+            android:text="1A-2B (This is where the log will display)" />
+        <!--
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/log_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/log_toolbar" />
+        -->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Recycler View for log-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

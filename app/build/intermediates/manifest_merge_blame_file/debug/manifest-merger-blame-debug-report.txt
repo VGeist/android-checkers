@@ -5,42 +5,84 @@
 5    android:versionName="1.0" >
 6
 7    <uses-sdk
-8        android:minSdkVersion="16"
-8-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml
+8        android:minSdkVersion="19"
+8-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml
+9-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml
 10
 11    <application
-11-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:5:5-19:19
+11-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:5:5-40:19
 12        android:allowBackup="true"
-12-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:6:9-35
+12-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:6:9-35
 13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-13-->[androidx.core:core:1.0.1] C:\Users\Vector-Gh0st\.gradle\caches\transforms-2\files-2.1\8f8ab13dc8f4e84e14a8bb3d9ac92bc4\core-1.0.1\AndroidManifest.xml:22:18-86
+13-->[androidx.core:core:1.1.0] C:\Users\Vector-Gh0st\.gradle\caches\transforms-2\files-2.1\1cd7eff88f5e86d0249af2958bf465f0\core-1.1.0\AndroidManifest.xml:24:18-86
 14        android:debuggable="true"
 15        android:icon="@mipmap/ic_launcher"
-15-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:7:9-43
+15-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:7:9-43
 16        android:label="@string/app_name"
-16-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:8:9-41
+16-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:8:9-41
 17        android:roundIcon="@mipmap/ic_launcher_round"
-17-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:9:9-54
+17-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:9:9-54
 18        android:supportsRtl="true"
-18-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:10:9-35
-19        android:theme="@style/AppTheme" >
-19-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:11:9-40
-20        <activity android:name="com.victorgeist.checkers.MainActivity" >
-20-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:12:9-18:20
-20-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:12:19-47
-21            <intent-filter>
-21-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:13:13-17:29
-22                <action android:name="android.intent.action.MAIN" />
-22-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:14:17-69
-22-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:14:25-66
-23
-24                <category android:name="android.intent.category.LAUNCHER" />
-24-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:16:17-77
-24-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\app\src\main\AndroidManifest.xml:16:27-74
-25            </intent-filter>
-26        </activity>
-27    </application>
+18-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:10:9-35
+19        android:testOnly="true"
+20        android:theme="@style/AppTheme" >
+20-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:11:9-40
+21
+22        <!-- ACTIVITIES SHOULD BE SET TO LANDSCAPE ORIENTATION -->
+23        <activity
+23-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:13:9-21:20
+24            android:name="com.victorgeist.checkers.MainActivity"
+24-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:14:13-41
+25            android:screenOrientation="landscape" >
+25-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:15:13-50
+26            <intent-filter>
+26-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:16:13-20:29
+27                <action android:name="android.intent.action.MAIN" />
+27-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:17:17-69
+27-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:17:25-66
 28
-29</manifest>
+29                <category android:name="android.intent.category.LAUNCHER" />
+29-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:19:17-77
+29-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:19:27-74
+30            </intent-filter>
+31        </activity>
+32        <activity
+32-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:22:9-24:53
+33            android:name="com.victorgeist.checkers.GameActivity"
+33-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:23:13-41
+34            android:screenOrientation="landscape" />
+34-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:24:13-50
+35        <activity
+35-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:25:9-27:53
+36            android:name="com.victorgeist.checkers.LoadActivity"
+36-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:26:13-41
+37            android:screenOrientation="landscape" />
+37-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:27:13-50
+38        <activity
+38-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:28:9-30:53
+39            android:name="com.victorgeist.checkers.SaveActivity"
+39-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:29:13-41
+40            android:screenOrientation="landscape" />
+40-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:30:13-50
+41        <activity
+41-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:31:9-33:53
+42            android:name="com.victorgeist.checkers.OptionsActivity"
+42-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:32:13-44
+43            android:screenOrientation="landscape" />
+43-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:33:13-50
+44        <activity
+44-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:34:9-36:53
+45            android:name="com.victorgeist.checkers.CreditsActivity"
+45-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:35:13-44
+46            android:screenOrientation="landscape" />
+46-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:36:13-50
+47        <activity
+47-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:37:9-39:53
+48            android:name="com.victorgeist.checkers.PauseActivity"
+48-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:38:13-42
+49            android:screenOrientation="landscape" />
+49-->G:\Mobile Programming\Semester Project - Checkers\CheckersApp\android-checkers\app\src\main\AndroidManifest.xml:39:13-50
+50    </application>
+51
+52</manifest>

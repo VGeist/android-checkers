@@ -17,13 +17,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.victorgeist.checkers.MainActivity" >
+        <activity android:name="com.victorgeist.checkers.CreditsActivity" />
+        <!-- ACTIVITIES SHOULD BE SET TO LANDSCAPE ORIENTATION -->
+        <activity
+            android:name="com.victorgeist.checkers.MainActivity"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.victorgeist.checkers.GameActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.victorgeist.checkers.LoadActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.victorgeist.checkers.SaveActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="com.victorgeist.checkers.OptionsActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
