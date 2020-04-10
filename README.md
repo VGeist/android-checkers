@@ -1,11 +1,19 @@
 # android-checkers
 Checkers game for android
 
-Navigation between activities
-Primary functions like saving a game use toasts to provide indication that the buttons are working properly.
+ADDED vector images for checker pieces
+ADDED game board graphics
+Created RecyclerView to display log information
+GameActivity only tracks buttons for tiles that are used in checkers, this is to make the file easier to read
+ADDED AddGameBoardButtons() to GameActivity - used to keep onCreate() easy to read
+ADDED UpdateGameTileButton to GameActivity - if tile has a checker, displays appropriate icon and enables button 
+ADDED abstract Piece class
+ADDED Man class
+ADDED King class
 
-Options menu uses placeholder buttons for future use
-Chessboard will be added later
-Game log will be added later
-Removed back buttons from design - use phone back button to navigate to previous activities
-Load buttons in LoadActivity open the GameActivity
+To finish for part 3 - 
+allow pieces to move
+	- block movement with pieces in the way
+	? add jumping and piece capture
+add stand-in movement logging
+? implement becomeKing
