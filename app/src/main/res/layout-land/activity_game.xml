@@ -14,33 +14,29 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintLeft_toLeftOf="parent">
 
-        <!-- Image Buttons are added in game_activity
-        Example button:
-        <ImageButton
-            android:background="@color/colorPrimary"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:src="@drawable/ic_man_black"
-            android:contentDescription="tile" />-->
+        <!-- Image Buttons that make up the board are added in gameActivity -->
     </GridLayout>
 
-    <!-- Player 1 Turn control -->
+    <TextView
+        android:id="@+id/turn_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Team's turn"
+        android:rotation="90"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/log_container"
+        app:layout_constraintLeft_toRightOf="@id/game_board"
+        app:layout_constraintStart_toEndOf="@+id/game_board"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Player 1 Turn control -->
     <Button
         android:id="@+id/player1_forfeit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forfeit_button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/game_board"
-        app:layout_constraintRight_toLeftOf="@id/log_container" />
-
-    <Button
-        android:id="@+id/player1_undo_turn_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/undo_move_button"
-        app:layout_constraintBottom_toTopOf="@id/player1_forfeit_button"
         app:layout_constraintLeft_toRightOf="@id/game_board"
         app:layout_constraintRight_toLeftOf="@id/log_container" />
 
@@ -54,16 +50,6 @@
         app:layout_constraintLeft_toRightOf="@id/game_board"
         app:layout_constraintRight_toLeftOf="@id/log_container"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/player2_undo_turn_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:rotation="180"
-        android:text="@string/undo_move_button"
-        app:layout_constraintLeft_toRightOf="@id/game_board"
-        app:layout_constraintRight_toLeftOf="@id/log_container"
-        app:layout_constraintTop_toBottomOf="@id/player2_forfeit_button" />
 
     <!-- Log container -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,15 +77,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- ToDo: replace with icon -->
-            <Button
-                android:id="@+id/pause_button"
+            <ImageButton
+                android:id="@+id/reset_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Menu"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_reload"
+                android:background="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/save_button"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="10dp"
+                android:contentDescription="@string/reset_game_button" />
+
+            <ImageButton
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_save"
+                android:background="#ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/save_game_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -72,31 +72,31 @@ public abstract class Piece {
             setPrevFilePos(getFilePos());
 
             // pickup the piece
-            Game.removePiece(this);
+            Game.get().removePiece(this);
 
             // update piece coordinates
             setRankPos(newRank);
             setFilePos(newFile);
 
             // place piece at new location
-            Game.placePiece(this);
+            Game.get().placePiece(this);
 
-            Game.addNewLogEntry(getTeam().getTeamName() + " moved " + getClass().getSimpleName() + " from " +
-                    getPrevFilePos() + ", " + getPrevRankPos() + " to " + getFilePos() + ", " + getRankPos());
+            Game.get().addNewLogEntry(getTeam().getTeamName() + " moved " + getClass().getSimpleName() + " from " +
+                    getPrevRankPos() + ", " + getPrevFilePos() + " to " + getRankPos() + ", " + getFilePos());
 
             // mark previous tile pos, and new tile pos for update
             int[] newTile = { newRank, newFile };
             int[] prevTile = { getPrevRankPos(), getPrevFilePos() };
 
-            Game.tilesToUpdate.add(newTile);
-            Game.tilesToUpdate.add(prevTile);
+            Game.get().tilesToUpdate.add(newTile);
+            Game.get().tilesToUpdate.add(prevTile);
 
             //NOTE: moves that end turn are defined in the subclass, for simplicity all moves end turn
 
             return true;
         } else {
             // piece unable to move to that location
-            Game.addNewLogEntry("Can't move to that location.");
+            Game.get().addNewLogEntry("Can't move to that location.");
             return false;
         }
     }
@@ -120,7 +120,7 @@ public abstract class Piece {
         int colJumpDirection = (this.getFilePos() - this.getPrevFilePos()) / 2;
 
         // return piece 1 space in direction of jump
-        return Game.getPieceAtTile(this.getPrevRankPos() + rowJumpDirection, this.getPrevFilePos() + colJumpDirection);
+        return Game.get().getPieceAtTile(this.getPrevRankPos() + rowJumpDirection, this.getPrevFilePos() + colJumpDirection);
     }
 
     // checks if last move was a jump

@@ -3,17 +3,10 @@
     <string name="app_name">Checkers</string>
     <string name="new_game_button">New Game</string>
     <string name="load_game_button">Load Game</string>
-    <string name="options_button">Options</string>
     <string name="credits_button">Credits</string>
-    <string name="exit_dialog">Are you sure you want to quit?</string>
-    <string name="cancel_button">Cancel</string>
-    <string name="back_button">Back</string>
-    <string name="confirm_button">Confirm</string>
-    <string name="apply_button">Apply</string>
     <string name="main_menu_button">Main Menu</string>
 
     <!-- Saving and loading -->
-    <string name="empty_slot">-- Empty --</string>
     <string name="save_button">Save</string>
     <string name="load_button">Load</string>
     <string name="save_slot1">Slot 01:</string>
@@ -21,20 +14,11 @@
     <string name="save_slot3">Slot 03:</string>
 
     <!-- IN-GAME -->
-    <string name="unsaved_warning_dialog">Unsaved progress will be lost.\nContinue?</string>
     <string name="save_game_button">Save Game</string>
     <string name="reset_game_button">Reset Game</string>
     <string name="forfeit_button">Forfeit</string>
-    <string name="undo_move_button">Undo</string>
     <string name="log_title">Log</string>
-
-    <!-- OPTIONS -->
-    <string name="defaults_button">Reset to Default</string>
-    <string name="more_options_button">More</string>
 
     <!-- CREDITS -->
     <string name="credits_developers">Developed by:\nVictor Geist</string>
-
-    <!-- PAUSE MENU -->
-    <string name="pause_menu_title">Paused</string>
 </resources>

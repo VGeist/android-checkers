@@ -14,7 +14,6 @@
         android:textSize="40sp"
         android:text="@string/save_game_button" />
 
-    <!-- SAVE SLOT 1 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,26 +21,21 @@
         android:layout_gravity="center"
         android:padding="5dp" >
 
+        <!-- SAVE SLOT 1 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:layout_margin="20dp"
+            android:paddingRight="100dp" >
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
+                android:textAlignment="center"
+                android:textSize="30sp"
                 android:text="@string/save_slot1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:text="1/1/20 00:00:00" />
 
             <Button
                 android:id="@+id/save_slot1_button"
@@ -57,23 +51,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:layout_margin="20dp"
+            android:paddingRight="100dp" >
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
+                android:textAlignment="center"
+                android:textSize="30sp"
                 android:text="@string/save_slot2" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:text="1/1/20 00:00:00" />
 
             <Button
                 android:id="@+id/save_slot2_button"
@@ -89,23 +77,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp" >
+            android:layout_margin="20dp"
+            android:paddingRight="100dp" >
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
+                android:textAlignment="center"
+                android:textSize="30sp"
                 android:text="@string/save_slot3" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:text="1/1/20 00:00:00" />
 
             <Button
                 android:id="@+id/save_slot3_button"

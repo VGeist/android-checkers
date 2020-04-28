@@ -24,18 +24,18 @@ public class King extends Piece {
                 Piece jumped = findJumpedPiece();
 
                 // add message to log
-                Game.addNewLogEntry("The piece at " + jumped.getRankPos() + ", " + jumped.getFilePos() + " was taken!");
+                Game.get().addNewLogEntry("The piece at " + jumped.getRankPos() + ", " + jumped.getFilePos() + " was taken!");
 
                 // mark tile for update
                 int[] jumpedTile = { jumped.getRankPos(), jumped.getFilePos() };
-                Game.tilesToUpdate.add(jumpedTile);
+                Game.get().tilesToUpdate.add(jumpedTile);
 
                 // remove piece from play
-                Game.removePiece(findJumpedPiece());
+                Game.get().removePiece(findJumpedPiece());
             }
 
             // move successful, end turn
-            Game.nextTurn();
+            Game.get().nextTurn();
 
             return true;
         } else {
@@ -46,7 +46,6 @@ public class King extends Piece {
 
     @Override
     protected List<int[]> findValidMoves() {
-        //TODO: add backward moving moves
         int forward = this.getTeam().getForward();
 
         List<int[]> validMoves = new ArrayList<>();
@@ -61,9 +60,9 @@ public class King extends Piece {
 
         // check moves
         for (int[] move : movesToTest) {
-            if(Game.inBoundary(move[0], move[1])) {
+            if(Game.get().inBoundary(move[0], move[1])) {
                 // within boundary
-                Piece blockingPiece = Game.getPieceAtTile(move[0], move[1]); // gets piece at the tile, or returns null
+                Piece blockingPiece = Game.get().getPieceAtTile(move[0], move[1]); // gets piece at the tile, or returns null
                 if (blockingPiece != null) {
                     // obstructing piece
                     if (blockingPiece.getTeam() != this.getTeam()) {
@@ -75,7 +74,7 @@ public class King extends Piece {
 
                         move[0] += rowVelocity;
                         move[1] += colVelocity;
-                        if (!Game.tileHasPiece(move[0], move[1])) {
+                        if (!Game.get().tileHasPiece(move[0], move[1])) {
                             // tile empty, can jump
                             // add move
                             validMoves.add(move);

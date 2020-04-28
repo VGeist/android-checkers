@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -23,9 +24,11 @@ public class GameActivity extends AppCompatActivity {
 
     private Button mForfeitP1Button;
     private Button mForfeitP2Button;
-    private Button mPauseButton;
+    private ImageButton mResetButton;
+    private ImageButton mSaveButton;
     private RecyclerView mLogRecyclerView;
     private LogAdapter mLogAdapter;
+    private TextView mTurnIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +42,15 @@ public class GameActivity extends AppCompatActivity {
         // log recycler view
         mLogRecyclerView = findViewById(R.id.game_log_recycler_view);
         mLogRecyclerView.setLayoutManager(new LinearLayoutManager(GameActivity.this));
-        UpdateLogUI();
-
-        // pause menu button
-        mPauseButton = findViewById(R.id.pause_button);
-        mPauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GameActivity.this, PauseActivity.class);
-                startActivity(intent);
-            }
-        });
 
         mForfeitP1Button = findViewById(R.id.player1_forfeit_button);
         mForfeitP1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // check if Black's turn
-                if(Game.getTurn().equals("Black")) {
+                if(Game.get().getTurn().equals("Black")) {
                     // is turn of player 1
-                    Game.forfeit();
+                    Game.get().forfeit();
                     endGame();
                 }
             }
@@ -69,13 +61,60 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // checks the player turn is Red
-                if(Game.getTurn().equals("Red")) {
+                if(Game.get().getTurn().equals("Red")) {
                     // is turn of player 1
-                    Game.forfeit();
+                    Game.get().forfeit();
                     endGame();
                 }
             }
         });
+
+        mResetButton = findViewById(R.id.reset_button);
+        mResetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // reset the game
+                Game.get().newGame();
+
+                // update UI elements
+                UpdateGameBoard();
+                UpdateLogUI();
+                UpdateTurnIndicator();
+
+                // activate buttons
+                for (int row = 0; row < 8; row++) {
+                    for (int col = 0; col < 8; col++) {
+                        mGameTiles[row][col].setEnabled(true);
+                    }
+                }
+                mForfeitP1Button.setEnabled(true);
+                mForfeitP2Button.setEnabled(true);
+
+                // notify user of reset
+                Toast.makeText(GameActivity.this, "Game Reset", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mSaveButton = findViewById(R.id.save_button);
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameActivity.this, SaveActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mTurnIndicator = findViewById(R.id.turn_indicator);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // update if changes were made
+        UpdateGameBoard();
+        UpdateLogUI();
+        UpdateTurnIndicator();
     }
 
     // changes image resource and sets disabled if there is a piece at the specified coordinates
@@ -85,7 +124,7 @@ public class GameActivity extends AppCompatActivity {
         ImageButton button = mGameTiles[rowPos][colPos];
 
         // get the residing piece
-        Piece piece = Game.getPieceAtTile(rowPos, colPos);
+        Piece piece = Game.get().getPieceAtTile(rowPos, colPos);
         if(piece != null) {
             // piece exists on this tile, display
             button.setImageResource(piece.getSpriteId());
@@ -143,28 +182,24 @@ public class GameActivity extends AppCompatActivity {
     // method for buttons
     private void tileClickEvent(int row, int col) {
         // if tile not empty, change selected piece or deselect if same
-        Piece pieceOnTile = Game.getPieceAtTile(row, col);
-        if (pieceOnTile == null && Game.selectedPiece != null) {
+        Piece pieceOnTile = Game.get().getPieceAtTile(row, col);
+        if (pieceOnTile == null && Game.get().selectedPiece != null) {
             // piece will move to location, if it can
-            Game.selectedPiece.move(row, col);
-
-            // update tiles
-            for(int[] tile : Game.tilesToUpdate) {
-                UpdateGameTile(tile[0], tile[1]);
-            }
-
-            // all tiles updated, clear update list
-            Game.tilesToUpdate.clear();
+            Game.get().selectedPiece.move(row, col);
         } else if (pieceOnTile != null) {
             // select the piece
-            Game.selectPiece(pieceOnTile);
+            Game.get().selectPiece(pieceOnTile);
         } else {
             // a piece needs to be selected
-            Game.addNewLogEntry("You must select a piece before you can move.");
+            Game.get().addNewLogEntry("You must select a piece before you can move.");
         }
-        UpdateLogUI();
 
-        if(Game.getWinner() != null) {
+        // update game
+        UpdateGameBoard();
+        UpdateLogUI();
+        UpdateTurnIndicator();
+
+        if(Game.get().getWinner() != null) {
             endGame();
         }
     }
@@ -179,13 +214,32 @@ public class GameActivity extends AppCompatActivity {
         mForfeitP1Button.setEnabled(false);
         mForfeitP2Button.setEnabled(false);
 
+        // update the log to display victory message
         UpdateLogUI();
+
+        // update indicator to show the game is over
+        mTurnIndicator.setText(Game.get().getWinner() + " has won!");
+    }
+
+    // updates all marked tiles
+    private void UpdateGameBoard() {
+        // update tiles
+        for(int[] tile : Game.get().tilesToUpdate) {
+            UpdateGameTile(tile[0], tile[1]);
+        }
+
+        // all tiles updated, clear update list
+        Game.get().tilesToUpdate.clear();
+    }
+
+    private void  UpdateTurnIndicator() {
+        mTurnIndicator.setText(Game.get().getTurn() + "'s Turn");
     }
 
     private void UpdateLogUI() {
-        mLogAdapter = new LogAdapter(Game.getGameLog());
+        mLogAdapter = new LogAdapter(Game.get().getGameLog());
         mLogRecyclerView.setAdapter(mLogAdapter);
-        mLogRecyclerView.scrollToPosition(Game.getGameLog().size() - 1);
+        mLogRecyclerView.scrollToPosition(Game.get().getGameLog().size() - 1);
     }
 
     // ViewHolder for Game Log RecyclerView

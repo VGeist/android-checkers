@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Man extends Piece {
-    private final int finalRow = this.getTeam().getForward() == 1 ? Game.getBoardBoundary() : 0;
+    private final int finalRow = this.getTeam().getForward() == 1 ? Game.get().getBoardBoundary() : 0;
 
     public Man(Team team, int startRank, int startFile) {
         super(team, startRank, startFile);
@@ -20,14 +20,14 @@ public class Man extends Piece {
                 Piece jumped = findJumpedPiece();
 
                 // add message to log
-                Game.addNewLogEntry("The piece at " + jumped.getRankPos() + ", " + jumped.getFilePos() + " was taken!");
+                Game.get().addNewLogEntry("The piece at " + jumped.getRankPos() + ", " + jumped.getFilePos() + " was taken!");
 
                 // mark tile for update
                 int[] jumpedTile = { jumped.getRankPos(), jumped.getFilePos() };
-                Game.tilesToUpdate.add(jumpedTile);
+                Game.get().tilesToUpdate.add(jumpedTile);
 
                 // remove piece from play
-                Game.removePiece(findJumpedPiece());
+                Game.get().removePiece(findJumpedPiece());
             }
 
             if(newRank == finalRow) {
@@ -35,7 +35,7 @@ public class Man extends Piece {
             }
 
             // move successful, end turn
-            Game.nextTurn();
+            Game.get().nextTurn();
 
             return true;
         } else {
@@ -58,9 +58,9 @@ public class Man extends Piece {
 
         // check moves
         for (int[] move : movesToTest) {
-            if(Game.inBoundary(move[0], move[1])) {
+            if(Game.get().inBoundary(move[0], move[1])) {
                 // within boundary
-                Piece blockingPiece = Game.getPieceAtTile(move[0], move[1]); // gets piece at the tile, or returns null
+                Piece blockingPiece = Game.get().getPieceAtTile(move[0], move[1]); // gets piece at the tile, or returns null
                 if (blockingPiece != null) {
                     // obstructing piece
                     if (blockingPiece.getTeam() != this.getTeam()) {
@@ -72,7 +72,7 @@ public class Man extends Piece {
 
                         move[0] += rowVelocity;
                         move[1] += colVelocity;
-                        if (!Game.tileHasPiece(move[0], move[1])) {
+                        if (!Game.get().tileHasPiece(move[0], move[1])) {
                             // tile empty, can jump
                             // add move
                             validMoves.add(move);
@@ -100,11 +100,11 @@ public class Man extends Piece {
         King newKing = new King(this);
 
         // remove man from play
-        Game.removePiece(this);
+        Game.get().removePiece(this);
 
         // add king in its place
-        Game.placePiece(newKing);
+        Game.get().placePiece(newKing);
 
-        Game.addNewLogEntry("Piece became a King.");
+        Game.get().addNewLogEntry("Piece became a King.");
     }
 }

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                Game.get().newGame();   // reset active game to starting state
+                Game.get().newGame();
                 startActivity(intent);
             }
         });
@@ -33,15 +33,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoadActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        mOptionsButton = findViewById(R.id.options_button);
-        mOptionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, OptionsActivity.class);
                 startActivity(intent);
             }
         });

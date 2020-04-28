@@ -1,0 +1,6 @@
+<!-- SOURCE: https://www.svgrepo.com/svg/9464/save -->
+<vector android:height="30dp" android:viewportHeight="512"
+    android:viewportWidth="512" android:width="30dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FF000000" android:pathData="M493.254,77.255l-58.508,-58.51C422.742,6.742 406.465,0 389.49,0H352v112c0,8.836 -7.164,16 -16,16H80c-8.836,0 -16,-7.164 -16,-16V0H32C14.328,0 0,14.326 0,32v448c0,17.673 14.328,32 32,32h448c17.672,0 32,-14.327 32,-32V122.51C512,105.535 505.258,89.257 493.254,77.255zM448,448H64V256h384V448z"/>
+    <path android:fillColor="#FF000000" android:pathData="M224,0h64v96h-64z"/>
+</vector>
