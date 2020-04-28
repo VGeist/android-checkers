@@ -32,7 +32,8 @@ public class PauseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // restart game
-                Toast.makeText(PauseActivity.this, "game restarted", Toast.LENGTH_SHORT).show();
+                Game.get().newGame();
+                Toast.makeText(PauseActivity.this, "Game Restarted", Toast.LENGTH_SHORT).show();
             }
         });
 

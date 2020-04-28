@@ -1,31 +1,110 @@
 package com.victorgeist.checkers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Man extends Piece {
-    public Man(int startRank, int startFile, int teamNum, int spriteId) {
-        super(startRank, startFile, teamNum, spriteId);
+    private final int finalRow = this.getTeam().getForward() == 1 ? Game.getBoardBoundary() : 0;
+
+    public Man(Team team, int startRank, int startFile) {
+        super(team, startRank, startFile);
     }
 
     @Override
-    public void movePiece(int newRank, int newFile) {
-        // TODO: implement movePiece
-        // move piece to tile
-        this.setRankPos(newRank);
-        this.setFilePos(newFile);
+    public boolean move(int newRank, int newFile) {
+        // try to move
+        if(super.move(newRank, newFile)) {
+            // move successful, check if special conditions ar met
+            if (jumpedAPiece()) {
+                // find the jumped piece
+                Piece jumped = findJumpedPiece();
 
-        // if last row, become king
+                // add message to log
+                Game.addNewLogEntry("The piece at " + jumped.getRankPos() + ", " + jumped.getFilePos() + " was taken!");
+
+                // mark tile for update
+                int[] jumpedTile = { jumped.getRankPos(), jumped.getFilePos() };
+                Game.tilesToUpdate.add(jumpedTile);
+
+                // remove piece from play
+                Game.removePiece(findJumpedPiece());
+            }
+
+            if(newRank == finalRow) {
+                becomeKing();
+            }
+
+            // move successful, end turn
+            Game.nextTurn();
+
+            return true;
+        } else {
+            // move unsuccessful
+            return false;
+        }
     }
 
     @Override
-    public boolean isMoveValid() {
-        // TODO: implement isMoveValid()
-        // check that a move is valid
-        return false;
+    protected List<int[]> findValidMoves() {
+        int forward = this.getTeam().getForward();
+
+        List<int[]> validMoves = new ArrayList<>();
+
+        // moves to test
+        int[][] movesToTest = {
+                { this.getRankPos() + forward, this.getFilePos() - 1 }, // Forward left
+                { this.getRankPos() + forward, this.getFilePos() + 1 }  // forward right
+        };
+
+        // check moves
+        for (int[] move : movesToTest) {
+            if(Game.inBoundary(move[0], move[1])) {
+                // within boundary
+                Piece blockingPiece = Game.getPieceAtTile(move[0], move[1]); // gets piece at the tile, or returns null
+                if (blockingPiece != null) {
+                    // obstructing piece
+                    if (blockingPiece.getTeam() != this.getTeam()) {
+                        // enemy piece
+                        // find jump location
+
+                        int rowVelocity = move[0] - this.getRankPos();
+                        int colVelocity = move[1] - this.getFilePos();
+
+                        move[0] += rowVelocity;
+                        move[1] += colVelocity;
+                        if (!Game.tileHasPiece(move[0], move[1])) {
+                            // tile empty, can jump
+                            // add move
+                            validMoves.add(move);
+                        }
+                    }
+                } else {
+                    // tile empty, can move
+                    validMoves.add(move);
+                }
+            }
+        }
+
+        // return list of moves
+        return validMoves;
     }
 
-    public King becomeKing() {
-        // return king for replacing man
-        // change sprite image: red if team 1 , black if 2
-        int newSpriteID = this.getTeamNum() == 1 ? R.drawable.ic_king_red : R.drawable.ic_king_black;
-        return new King(this.getID(), this.getRankPos(), this.getFilePos(), this.getTeamNum(), newSpriteID);
+    @Override
+    public int getSpriteId() {
+        return this.getTeam().getManSpriteId();
+    }
+
+    // replaces man with king
+    private void becomeKing() {
+        // create the piece
+        King newKing = new King(this);
+
+        // remove man from play
+        Game.removePiece(this);
+
+        // add king in its place
+        Game.placePiece(newKing);
+
+        Game.addNewLogEntry("Piece became a King.");
     }
 }

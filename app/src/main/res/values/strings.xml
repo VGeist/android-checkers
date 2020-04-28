@@ -24,7 +24,7 @@
     <string name="unsaved_warning_dialog">Unsaved progress will be lost.\nContinue?</string>
     <string name="save_game_button">Save Game</string>
     <string name="reset_game_button">Reset Game</string>
-    <string name="end_turn_button">End Turn</string>
+    <string name="forfeit_button">Forfeit</string>
     <string name="undo_move_button">Undo</string>
     <string name="log_title">Log</string>
 

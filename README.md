@@ -1,19 +1,16 @@
 # android-checkers
 Checkers game for android
 
-ADDED vector images for checker pieces
-ADDED game board graphics
-Created RecyclerView to display log information
-GameActivity only tracks buttons for tiles that are used in checkers, this is to make the file easier to read
-ADDED AddGameBoardButtons() to GameActivity - used to keep onCreate() easy to read
-ADDED UpdateGameTileButton to GameActivity - if tile has a checker, displays appropriate icon and enables button 
-ADDED abstract Piece class
-ADDED Man class
-ADDED King class
-
-To finish for part 3 - 
-allow pieces to move
-	- block movement with pieces in the way
-	? add jumping and piece capture
-add stand-in movement logging
-? implement becomeKing
+Game now fully functioning:
+	-added Forfeit button
+	-removed end turn button, turns end automatically after a piece is moved, this means that pieces can only jump once
+	-game does not end automatically if a player cannot move any pieces, the new forfeit button ensures the game may end
+	-Men can move and jump
+	-Kings can do the same, but can move backwards
+	
+Planned changes:
+	-remove options activity
+	-remove Undo button
+	-remove Pause activity
+	-replace pause button in gameActivity with save/reset buttons
+	-add turn indicator to gameActivity

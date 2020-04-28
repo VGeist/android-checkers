@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +18,11 @@ import android.widget.TextView;
 import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
-    // game objects
-    private Game mActiveGame;
-    private Piece mSelectedPiece;
-
-    /*
-        only including buttons needed for CHECKERS not all 64 tiles to keep the file size easier to manage
-        tiles are identified by 1 letter and 1 number: A1 (column/file 1, row/rank 1)
-        columns counted from left to right, rows counted from bottom to top
-     */
+    // game board is a 2d array of ImageButton objects
     private ImageButton[][] mGameTiles = new ImageButton[8][8];
 
-    // other objects
+    private Button mForfeitP1Button;
+    private Button mForfeitP2Button;
     private Button mPauseButton;
     private RecyclerView mLogRecyclerView;
     private LogAdapter mLogAdapter;
@@ -38,7 +30,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActiveGame = Game.get(GameActivity.this);
 
         setContentView(R.layout.activity_game);
 
@@ -59,42 +50,48 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mForfeitP1Button = findViewById(R.id.player1_forfeit_button);
+        mForfeitP1Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // check if Black's turn
+                if(Game.getTurn().equals("Black")) {
+                    // is turn of player 1
+                    Game.forfeit();
+                    endGame();
+                }
+            }
+        });
+
+        mForfeitP2Button = findViewById(R.id.player2_forfeit_button);
+        mForfeitP2Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // checks the player turn is Red
+                if(Game.getTurn().equals("Red")) {
+                    // is turn of player 1
+                    Game.forfeit();
+                    endGame();
+                }
+            }
+        });
     }
 
     // changes image resource and sets disabled if there is a piece at the specified coordinates
     // coordinates given should always reflect the coordinates of the button
-    private void UpdateGameTile(final int rowPos, final int colPos) {
+    private void UpdateGameTile(int rowPos, int colPos) {
         // retrieve button
-        try {
-            ImageButton button = mGameTiles[rowPos][colPos];
+        ImageButton button = mGameTiles[rowPos][colPos];
 
-            // check if there is a piece
-            if(mActiveGame.tileHasPiece(rowPos, colPos)) {
-                // get the residing piece
-                Piece piece = mActiveGame.getPieceAtTile(rowPos, colPos);
-
-                // display piece
-                button.setImageResource(piece.getSpriteResId());
-
-                // set click event
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // select residing piece
-                        mSelectedPiece = mActiveGame.getPieceAtTile(rowPos, colPos);
-
-                        // TODO: remove test logging
-                        mActiveGame.addNewLogEntry("Piece selected on tile " + mSelectedPiece.getFilePos() + ":" + mSelectedPiece.getRankPos());
-                        UpdateLogUI();
-                    }
-                });
-            } else {
-                // no piece found, disable the button
-                button.setEnabled(false);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
+        // get the residing piece
+        Piece piece = Game.getPieceAtTile(rowPos, colPos);
+        if(piece != null) {
+            // piece exists on this tile, display
+            button.setImageResource(piece.getSpriteId());
+        } else {
+            // no piece, set as empty
+            button.setImageResource(0);
         }
     }
 
@@ -127,18 +124,68 @@ public class GameActivity extends AppCompatActivity {
                 // add button to gameBoard
                 gameBoard.addView(mGameTiles[row][col]);
 
+                // set click event
+                final int r = row;
+                final int c = col;
+                mGameTiles[row][col].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tileClickEvent(r, c);
+                    }
+                });
+
                 // update the button to reflect current game data
                 UpdateGameTile(row, col);
             }
         }
     }
 
-    private void UpdateLogUI() {
-        Game gameInstance = Game.get(GameActivity.this);
+    // method for buttons
+    private void tileClickEvent(int row, int col) {
+        // if tile not empty, change selected piece or deselect if same
+        Piece pieceOnTile = Game.getPieceAtTile(row, col);
+        if (pieceOnTile == null && Game.selectedPiece != null) {
+            // piece will move to location, if it can
+            Game.selectedPiece.move(row, col);
 
-        mLogAdapter = new LogAdapter(gameInstance.getGameLog());
+            // update tiles
+            for(int[] tile : Game.tilesToUpdate) {
+                UpdateGameTile(tile[0], tile[1]);
+            }
+
+            // all tiles updated, clear update list
+            Game.tilesToUpdate.clear();
+        } else if (pieceOnTile != null) {
+            // select the piece
+            Game.selectPiece(pieceOnTile);
+        } else {
+            // a piece needs to be selected
+            Game.addNewLogEntry("You must select a piece before you can move.");
+        }
+        UpdateLogUI();
+
+        if(Game.getWinner() != null) {
+            endGame();
+        }
+    }
+
+    // disables all buttons to prevent modifying the game state
+    private void endGame() {
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                mGameTiles[row][col].setEnabled(false);
+            }
+        }
+        mForfeitP1Button.setEnabled(false);
+        mForfeitP2Button.setEnabled(false);
+
+        UpdateLogUI();
+    }
+
+    private void UpdateLogUI() {
+        mLogAdapter = new LogAdapter(Game.getGameLog());
         mLogRecyclerView.setAdapter(mLogAdapter);
-        mLogRecyclerView.scrollToPosition(gameInstance.getGameLog().size() - 1);
+        mLogRecyclerView.scrollToPosition(Game.getGameLog().size() - 1);
     }
 
     // ViewHolder for Game Log RecyclerView
