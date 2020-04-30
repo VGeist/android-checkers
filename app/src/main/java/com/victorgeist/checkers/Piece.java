@@ -4,7 +4,7 @@ import java.util.UUID;
 import java.util.List;
 
 // extends to the Man and King classes
-public abstract class Piece {
+public abstract class Piece implements java.io.Serializable {
     private UUID mID;
     private Team mTeam;
     private int mRankPos; // row

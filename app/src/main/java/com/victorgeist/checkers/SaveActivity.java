@@ -11,13 +11,9 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class SaveActivity extends AppCompatActivity {
-    // files names for each slot
-    private final static String mSlot1 = "slot1.ckr";
-    private final static String mSlot2 = "slot2.ckr";
-    private final static String mSlot3 = "slot3.ckr";
-
     // buttons that save to the corresponding slot
     private Button mSaveSlot1;
     private Button mSaveSlot2;
@@ -33,7 +29,7 @@ public class SaveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // save game to slot 1
-                Save(Game.get(), mSlot1);
+                Save(Game.get(), 1);
                 Toast.makeText(SaveActivity.this, "Game Saved in slot 1", Toast.LENGTH_LONG).show();
             }
         });
@@ -43,7 +39,7 @@ public class SaveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // save game to slot 2
-                Save(Game.get(), mSlot2);
+                Save(Game.get(), 2);
                 Toast.makeText(SaveActivity.this, "Game Saved in slot 2", Toast.LENGTH_LONG).show();
             }
         });
@@ -53,20 +49,26 @@ public class SaveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // save game to slot 3
-                Save(Game.get(), mSlot3);
+                Save(Game.get(), 3);
                 Toast.makeText(SaveActivity.this, "Game Saved in slot 3", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private void Save(Game game, String saveSlot) {
+    private void Save(Game game, int slotNum) {
         // TODO: Save game object as string
-        String gameString = game.getTurn();
+        String fileName = "slot" + slotNum + ".ser";
         try {
-            FileOutputStream writer = openFileOutput(saveSlot, MODE_PRIVATE);
-            writer.write(gameString.getBytes());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            // create fileOutput and objectOutput streams
+            FileOutputStream fileOut = openFileOutput(fileName, MODE_PRIVATE);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+
+            // save game
+            out.writeObject(game);
+
+            // close streams
+            out.close();
+            fileOut.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -3,7 +3,7 @@ package com.victorgeist.checkers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Man extends Piece {
+public class Man extends Piece implements java.io.Serializable {
     private final int finalRow = this.getTeam().getForward() == 1 ? Game.get().getBoardBoundary() : 0;
 
     public Man(Team team, int startRank, int startFile) {

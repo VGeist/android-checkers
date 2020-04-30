@@ -3,7 +3,7 @@ package com.victorgeist.checkers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class King extends Piece {
+public class King extends Piece implements java.io.Serializable {
     //create a king manually
     public King(Team team, int startRank, int startFile) {
         super(team, startRank, startFile);

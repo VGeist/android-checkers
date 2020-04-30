@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 
 public class LoadActivity extends AppCompatActivity {
     private Button mLoadSlot1;
@@ -50,24 +51,22 @@ public class LoadActivity extends AppCompatActivity {
         });
     }
 
-    private Game GetGameFromFile(String slot) {
-        //TODO: convert string into a game object
+    private Game GetGameFromFile(String file) {
         try {
-            FileInputStream stream = openFileInput(slot);
-            InputStreamReader reader = new InputStreamReader(stream);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            // return bufferedReader.readLine(); TODO: get string data and convert
-            return Game.get().NewTestGame(); // TODO: remove testGame
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            FileInputStream fileIn = openFileInput(file);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            Game game = (Game) in.readObject();
+            in.close();
+            fileIn.close();
+            return game;
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     private void LoadGame(int slotNum) {
-        String fileName = "slot" + slotNum + ".ckr";
+        String fileName = "slot" + slotNum + ".ser";
         Game loadedGame = GetGameFromFile(fileName);
         if (loadedGame != null) {
             // game exists, load it as the activeGame

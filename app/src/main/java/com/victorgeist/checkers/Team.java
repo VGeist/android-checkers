@@ -3,7 +3,7 @@ package com.victorgeist.checkers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Team {
+public class Team implements java.io.Serializable {
     private String mTeamName;
     public List<Piece> Pieces;
     private int mManSpriteId;

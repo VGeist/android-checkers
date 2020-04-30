@@ -3,7 +3,7 @@ package com.victorgeist.checkers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game implements java.io.Serializable {
     private static Game sActiveGame;
     private int mBoardBoundary = 7; // NOTE: boundary value assumes the index of GameBoard starts at 0
     private Piece[][] mGameBoard;
@@ -12,7 +12,7 @@ public class Game {
     private Team redTeam = new Team("Red", R.drawable.ic_man_red, R.drawable.ic_king_red, 1);
     private String mTurn;        // uses teamName of Team to determine turns
     private String mWinner;
-    public Piece selectedPiece;
+    public transient Piece selectedPiece;
     public List<int[]> tilesToUpdate = new ArrayList<>();
 
     // return the active game, if no game exists create a new one
